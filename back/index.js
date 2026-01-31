@@ -9,24 +9,24 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/analyze", async (req, res) => {
-    const { code, language } = req.body;
+    const { code } = req.body;
 
     if (!code) {
         return res.status(400).json({ error: "Code is required" });
     }
 
     try {
-        const analysis = await analyzeCodeWithAI(code, language);
+        const analysis = await analyzeCodeWithAI(code);
         res.json(analysis);
     } catch (err) {
         res.status(500).json({ error: "AI analysis failed" });
     }
 });
 
-async function analyzeCodeWithAI(code, language) {
+async function analyzeCodeWithAI(code) {
     const prompt = `You are a senior software architect.
 
-    Analyze the following ${language} code and identify:
+    Analyze the following code and identify:
     1. Scalability risks
     2. Logical bugs or fragile assumptions
     3. Technical debt that will cause issues in 6-12 months
@@ -77,7 +77,6 @@ async function analyzeCodeWithAI(code, language) {
 
 
     const data = await response.json();
-    console.log("Full AI response:", JSON.stringify(data, null, 2));
 
     try {
         if (!data.candidates || data.candidates.length === 0) {
