@@ -52,7 +52,8 @@ async function analyzeCodeWithAI(code) {
         "explanation": "",
         "failure_condition": "",
         "severity": ""
-        }]
+        }],
+        "detected_language" : ""
     }
 
     CODE:
