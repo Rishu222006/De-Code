@@ -2,19 +2,22 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config();    // configuring dotenv for accessing API key.
 
-const app = express();
-app.use(cors());
+const app = express();   // setting up express
+app.use(cors());         // setting up middlewares
 app.use(express.json());
 
+
+// post method for analyzing the code
 app.post("/analyze", async (req, res) => {
-    const { code } = req.body;
+    const { code } = req.body;  // receives code from the iser
 
     if (!code) {
         return res.status(400).json({ error: "Code is required" });
-    }
+    }       // error handling if no code is received.
 
+    // core functioning of the analysis with error handling.
     try {
         const analysis = await analyzeCodeWithAI(code);
         res.json(analysis);
@@ -24,6 +27,7 @@ app.post("/analyze", async (req, res) => {
 });
 
 async function analyzeCodeWithAI(code) {
+    // prompt guiding the usage instructions to AI call.
     const prompt = `You are a senior software architect.
 
     Analyze the following code and identify:
@@ -59,7 +63,7 @@ async function analyzeCodeWithAI(code) {
     CODE:
     ${code} `
 
-
+    // receiving API response.
     const response = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY1}`,
         {
@@ -76,10 +80,12 @@ async function analyzeCodeWithAI(code) {
         }
     );
 
-
+    // converting response json to data.
     const data = await response.json();
 
+    // providing the the converted data
     try {
+        // error handling if the data candidate(s) is/are missing.
         if (!data.candidates || data.candidates.length === 0) {
             console.error("AI response missing candidates:", data);
             return {
@@ -96,6 +102,7 @@ async function analyzeCodeWithAI(code) {
 
         return JSON.parse(jsonMatch[0]);
     } catch (err) {
+        // error handling for parsing issue.
         console.error("Failed to parse AI response:", err);
         return {
             overall_risk: "Unknown",
@@ -105,4 +112,6 @@ async function analyzeCodeWithAI(code) {
     }
 };
 
+
+// code for running the server.
 app.listen(5000, () => console.log(`${process.env.CHECK}`));
