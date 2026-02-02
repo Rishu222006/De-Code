@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import analyzeRoutes from "./file.js";
 
 dotenv.config();    // configuring dotenv for accessing API key.
 
@@ -25,6 +26,8 @@ app.post("/analyze", async (req, res) => {
         res.status(500).json({ error: "AI analysis failed" });
     }
 });
+
+app.use("/", analyzeRoutes);
 
 async function analyzeCodeWithAI(code) {
     // prompt guiding the usage instructions to AI call.

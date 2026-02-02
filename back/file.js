@@ -1,17 +1,21 @@
 import multer from "multer";
 const upload = multer();
 import express, { Router } from "express";
-import cors from "cors";
-
 const router = express.Router();
-const app = express();   // setting up express
-app.use(cors());         // setting up middlewares
-app.use(express.json());
-app.post("/analyze-file", upload.single("file"), async (req, res) => {
+
+router.post("/file", upload.single("file"), async (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+    }
+
     const code = req.file.buffer.toString("utf-8");
-    const analysis = await analyzeCodeWithAI(code);
-    res.json(analysis);
-});
 
+    try {
+        const analysis = await analyzeCodeWithAI(code);
+        res.json(analysis);
+    } catch (err) {
+        res.status(500).json({ error: "AI analysis failed" });
+    }
+})
 
-module.exports = router;
+export default router;
