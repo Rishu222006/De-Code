@@ -9,7 +9,7 @@ export async function analyzeCodeWithAI(code) {
 
     For EACH issue, return:
     - title
-    - category (Scalability | Bug | Technical Debt)
+    - category ( Bug | Scalability | Technical Debt)
     - explanation
     - failure_condition
     - severity (Low | Medium | High)
