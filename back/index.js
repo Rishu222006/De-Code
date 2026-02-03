@@ -28,8 +28,8 @@ app.post("/analyze", async (req, res) => {
     }
 });
 
-app.use("/", analyzeFile);
-app.use("/", analyzeRepo);
+app.use("/", analyzeFile);   // router mounted for file analyzing feature.
+app.use("/", analyzeRepo);   // router mounted for repo analyzing feature.
 
 
 // code for running the server.

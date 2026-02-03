@@ -6,8 +6,28 @@ export async function fetchRepoFiles(owner, repo, branch = "main") {
     if (!res.ok) throw new Error("Failed to fetch repo tree");
     const data = await res.json();
 
+    const IGNORE_DIRS = [
+        "node_modules",
+        "dist",
+        "build",
+        ".next",
+        "public",
+        "coverage"
+    ];
+
     // Filter for code files
     return data.tree
-        .filter((f) => f.type === "blob" && /\.(js|ts|py|java|cpp|c|cs)$/.test(f.path))
+        .filter(f =>
+            f.type === "blob" &&
+            /\.(js|ts|py|java|cpp|c|cs|jsx|tsx)$/.test(f.path) &&
+            !f.path.includes(".config.") &&
+            !IGNORE_DIRS.some(dir => f.path.startsWith(dir + "/")) &&
+            (
+                f.path.startsWith("src/") ||
+                f.path.startsWith("app/") ||
+                f.path.startsWith("lib/") ||
+                f.path.startsWith("server/")
+            )
+        )
         .map((f) => `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${f.path}`);
 }
