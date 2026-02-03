@@ -1,16 +1,15 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import analyzeRoutes from "./file.js";
+import analyzeFile from "./routes/file.js";
 import { analyzeCodeWithAI } from "./analyze.js";
-
+import analyzeRepo from "./routes/repo.js";
 
 dotenv.config();    // configuring dotenv for accessing API key.
 
 const app = express();   // setting up express
 app.use(cors());         // setting up middlewares
 app.use(express.json());
-
 
 // post method for analyzing the code
 app.post("/analyze", async (req, res) => {
@@ -29,7 +28,8 @@ app.post("/analyze", async (req, res) => {
     }
 });
 
-app.use("/", analyzeRoutes);
+app.use("/", analyzeFile);
+app.use("/", analyzeRepo);
 
 
 // code for running the server.

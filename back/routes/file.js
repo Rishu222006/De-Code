@@ -2,7 +2,7 @@ import multer from "multer";
 const upload = multer();
 import express, { Router } from "express";
 const router = express.Router();
-import { analyzeCodeWithAI } from "./analyze.js";
+import { analyzeCodeWithAI } from "../analyze.js";
 
 router.post("/file", upload.single("file"), async (req, res) => {
     if (!req.file) {

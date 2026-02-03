@@ -7,8 +7,9 @@ export default function CodeInput() {
   const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [githubUrl, setGithubUrl] = useState("");
 
-  // 🔍 Analyze code from editor
+  // Analyze code from editor
   const analyzeCode = async () => {
     if (!code.trim()) {
       setError("Code cannot be empty");
@@ -37,7 +38,7 @@ export default function CodeInput() {
     }
   };
 
-  // 📂 Analyze uploaded file
+  // Analyze uploaded file
   const analyzeFile = async () => {
     if (!file) {
       setError("Please select a file");
@@ -67,6 +68,50 @@ export default function CodeInput() {
       setLoading(false);
     }
   };
+
+
+  // Analyze uploaded github repo url
+  const analyzeGithubRepo = async () => {
+    if (!githubUrl.trim()) return setError("GitHub URL required");
+
+    setLoading(true);
+    setError(null);
+    setAnalysis(null);
+
+    try {
+      const res = await fetch("http://localhost:5000/analyze-github-repo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: githubUrl })
+      });
+
+      if (!res.ok) throw new Error("Failed to analyze GitHub repo");
+      setAnalysis(await res.json());
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const IssueCard = ({ issue }) => (
+    <div
+      style={{
+        border: "1px solid #64748b",
+        padding: "12px",
+        marginBottom: "10px",
+        borderRadius: "6px",
+        background: "#020617"
+      }}
+    >
+      <h4>{issue.title}</h4>
+      <p><strong>Category:</strong> {issue.category}</p>
+      <p><strong>Severity:</strong> {issue.severity}</p>
+      <p>{issue.explanation}</p>
+      <p><em>{issue.failure_condition}</em></p>
+    </div>
+  );
+
 
   return (
     <div style={{ background: "#0f172a", minHeight: "100vh", padding: "20px" }}>
@@ -100,6 +145,26 @@ export default function CodeInput() {
         </button>
       </div>
 
+      {/* GitHub Repo */}
+      <div style={{ marginTop: "16px", display: "flex", gap: "10px" }}>
+        <input
+          placeholder="Paste GitHub repository URL"
+          value={githubUrl}
+          onChange={(e) => setGithubUrl(e.target.value)}
+          style={{
+            flex: 1,
+            padding: "8px",
+            background: "#020617",
+            color: "white",
+            border: "1px solid #64748b",
+            borderRadius: "4px"
+          }}
+        />
+        <button onClick={analyzeGithubRepo} disabled={loading}>
+          Analyze GitHub Repo
+        </button>
+      </div>
+
       {/* States */}
       {loading && <p style={{ color: "white" }}>Analyzing…</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
@@ -107,29 +172,37 @@ export default function CodeInput() {
       {/* Output */}
       {analysis && (
         <div style={{ marginTop: "20px", color: "white" }}>
-          <h3>Detected Language: {analysis.detected_language || "Unknown"}</h3>
-          <h4>Overall Risk: {analysis.overall_risk}</h4>
+          {/* Single file / editor analysis */}
+          {analysis.issues && (
+            <>
+              <h3>Detected Language: {analysis.detected_language || "Unknown"}</h3>
+              <h4>Overall Risk: {analysis.overall_risk}</h4>
 
-          {analysis.issues.map((issue, index) => (
-            <div
-              key={index}
-              style={{
-                border: "1px solid #64748b",
-                padding: "12px",
-                marginBottom: "10px",
-                borderRadius: "6px",
-                background: "#020617"
-              }}
-            >
-              <h4>{issue.title}</h4>
-              <p><strong>Category:</strong> {issue.category}</p>
-              <p><strong>Severity:</strong> {issue.severity}</p>
-              <p>{issue.explanation}</p>
-              <p><em>{issue.failure_condition}</em></p>
-            </div>
-          ))}
+              {analysis.issues.map((issue, index) => (
+                <IssueCard key={index} issue={issue} />
+              ))}
+            </>
+          )}
+
+          {/* GitHub repo analysis */}
+          {analysis.files && (
+            <>
+              <h3>Repository: {analysis.repo}</h3>
+
+              {analysis.files.map((file, i) => (
+                <div key={i} style={{ marginBottom: "20px" }}>
+                  <h4 style={{ color: "#38bdf8" }}>📄 {file.file}</h4>
+
+                  {file.analysis.issues.map((issue, idx) => (
+                    <IssueCard key={idx} issue={issue} />
+                  ))}
+                </div>
+              ))}
+            </>
+          )}
         </div>
       )}
+
     </div>
   );
 }
