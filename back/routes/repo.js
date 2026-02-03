@@ -14,12 +14,13 @@ router.post("/analyze-github-repo", async (req, res) => {
         const { owner, repo } = parseGitHubRepoUrl(url);
         const fileUrls = await fetchRepoFiles(owner, repo);
 
-        const results = [];
-        for (const fileUrl of fileUrls) {
-            const code = await fetchFileContent(fileUrl);
-            const analysis = await analyzeCodeWithAI(code);
-            results.push({ file: fileUrl.split("/").pop(), analysis });
-        }
+        const results = await Promise.allSettled(
+            fileUrls.slice(0, 20).map(async (fileUrl) => {
+                const code = await fetchFileContent(fileUrl);
+                const analysis = await analyzeCodeWithAI(code);
+                return { file: fileUrl.split("/").pop(), analysis };
+            })
+        );
 
         res.json({ repo, files: results });
     } catch (err) {

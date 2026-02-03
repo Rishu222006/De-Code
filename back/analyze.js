@@ -37,7 +37,7 @@ export async function analyzeCodeWithAI(code) {
 
     // receiving API response.
     const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY1}`,
+        `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY1}`,
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
