@@ -208,29 +208,130 @@ export default function CodeInput() {
 }
 */}
 {/*added by prnv*/}
-import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { useState, createContext, useContext } from "react";
 import { Sparkles, Code2, Zap, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 
+/* -------------------- UTILS -------------------- */
+function cn(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
+/* -------------------- UI COMPONENTS -------------------- */
+
+function Button({ className, variant = "default", ...props }) {
+  const variants = {
+    default: "bg-indigo-600 hover:bg-indigo-700 text-white",
+    secondary: "bg-zinc-800 hover:bg-zinc-700 text-white",
+  };
+
+  return (
+    <button
+      className={cn(
+        "rounded-md px-4 py-2 text-sm font-medium transition disabled:opacity-50",
+        variants[variant],
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+function Card({ className, ...props }) {
+  return (
+    <div
+      className={cn(
+        "rounded-2xl border border-zinc-800 bg-zinc-900",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+function CardContent({ className, ...props }) {
+  return <div className={cn("p-5", className)} {...props} />;
+}
+
+function Textarea({ className, ...props }) {
+  return (
+    <textarea
+      className={cn(
+        "w-full rounded-md border border-zinc-800 bg-zinc-950 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+/* -------------------- SELECT -------------------- */
+
+const SelectContext = createContext();
+
+function Select({ value, onValueChange, children }) {
+  return (
+    <SelectContext.Provider value={{ value, onValueChange }}>
+      {children}
+    </SelectContext.Provider>
+  );
+}
+
+function SelectTrigger({ className, children }) {
+  return (
+    <button
+      className={cn(
+        "flex w-32 justify-between rounded-md border border-zinc-800 bg-zinc-950 px-3 py-2 text-sm",
+        className
+      )}
+    >
+      {children}
+    </button>
+  );
+}
+
+function SelectValue() {
+  const { value } = useContext(SelectContext);
+  return <span>{value}</span>;
+}
+
+function SelectContent({ children }) {
+  const { onValueChange } = useContext(SelectContext);
+
+  return (
+    <div className="absolute z-50 mt-1 w-32 rounded-md border border-zinc-800 bg-zinc-900">
+      {children.map((child) =>
+        clone(child, { onValueChange })
+      )}
+    </div>
+  );
+}
+
+function SelectItem({ value, children, onValueChange }) {
+  return (
+    <div
+      onClick={() => onValueChange(value)}
+      className="cursor-pointer px-3 py-2 text-sm hover:bg-zinc-800"
+    >
+      {children}
+    </div>
+  );
+}
+
+function clone(element, props) {
+  return { ...element, props: { ...element.props, ...props } };
+}
+
+/* -------------------- MAIN APP -------------------- */
+
 export default function DecodeUI() {
   const [code, setCode] = useState("");
-  const [language, setLanguage] = useState("javascript");
+  const [language, setLanguage] = useState("JavaScript");
   const [loading, setLoading] = useState(false);
   const [score, setScore] = useState(null);
 
-  const handleReview = () => {
+  function handleReview() {
     if (!code) return;
-
     setLoading(true);
     setScore(null);
 
@@ -238,7 +339,7 @@ export default function DecodeUI() {
       setScore(Math.floor(Math.random() * 40) + 60);
       setLoading(false);
     }, 2000);
-  };
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-black text-white p-6">
@@ -246,9 +347,9 @@ export default function DecodeUI() {
       <motion.header
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex justify-between items-center mb-12"
+        className="flex justify-between mb-12"
       >
-        <h1 className="text-2xl font-bold flex items-center gap-2">
+        <h1 className="flex items-center gap-2 text-2xl font-bold">
           <Sparkles className="text-indigo-400" /> de-code
         </h1>
         <Button variant="secondary">Try Demo</Button>
@@ -258,50 +359,43 @@ export default function DecodeUI() {
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-4xl mx-auto text-center mb-16"
+        className="mx-auto mb-16 max-w-4xl text-center"
       >
-        <h2 className="text-4xl font-bold mb-4">
+        <h2 className="mb-4 text-4xl font-bold">
           Write Better Code. Faster. Smarter.
         </h2>
-        <p className="text-zinc-400 text-lg">
-          A Gen-AI powered code reviewer that analyzes quality, complexity,
-          and best practices.
+        <p className="text-lg text-zinc-400">
+          A Gen-AI powered code reviewer with quality & complexity analysis.
         </p>
       </motion.section>
 
-      {/* Main Grid */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+      {/* Main */}
+      <section className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2">
         {/* Input */}
-        <Card className="bg-zinc-900 border-zinc-800 rounded-2xl">
-          <CardContent className="p-5">
-            <div className="flex justify-between items-center mb-3">
+        <Card>
+          <CardContent>
+            <div className="mb-3 flex justify-between">
               <h3 className="flex items-center gap-2 font-semibold">
                 <Code2 className="text-indigo-400" /> Paste your code
               </h3>
               <Select value={language} onValueChange={setLanguage}>
-                <SelectTrigger className="w-32 bg-zinc-950 border-zinc-800">
+                <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="cpp">C++</SelectItem>
-                  <SelectItem value="python">Python</SelectItem>
-                  <SelectItem value="javascript">JavaScript</SelectItem>
-                  <SelectItem value="java">Java</SelectItem>
-                </SelectContent>
               </Select>
             </div>
 
             <Textarea
               value={code}
               onChange={(e) => setCode(e.target.value)}
-              placeholder="// Paste your code here…"
-              className="h-64 bg-zinc-950 border-zinc-800 text-sm"
+              placeholder="// Paste your code here"
+              className="h-64"
             />
 
             <Button
+              className="mt-4 w-full"
               onClick={handleReview}
               disabled={!code || loading}
-              className="mt-4 w-full"
             >
               {loading ? "Analyzing…" : "Review Code"}
             </Button>
@@ -309,9 +403,9 @@ export default function DecodeUI() {
         </Card>
 
         {/* Output */}
-        <Card className="bg-zinc-900 border-zinc-800 rounded-2xl">
-          <CardContent className="p-5">
-            <h3 className="flex items-center gap-2 font-semibold mb-3">
+        <Card>
+          <CardContent>
+            <h3 className="mb-3 flex items-center gap-2 font-semibold">
               <Zap className="text-green-400" /> AI Suggestions
             </h3>
 
@@ -319,12 +413,12 @@ export default function DecodeUI() {
               <motion.p
                 animate={{ opacity: [0.4, 1, 0.4] }}
                 transition={{ repeat: Infinity, duration: 1.2 }}
-                className="text-zinc-400 text-sm"
+                className="text-sm text-zinc-400"
               >
                 🧪 Analyzing code…
               </motion.p>
             ) : score ? (
-              <div className="space-y-5">
+              <>
                 <QualityMeter score={score} />
                 <Suggestion type="bug" text="Unused variable detected" />
                 <Suggestion
@@ -335,7 +429,7 @@ export default function DecodeUI() {
                   type="suggestion"
                   text="Rename function for clarity"
                 />
-              </div>
+              </>
             ) : (
               <p className="text-sm text-zinc-500">
                 Paste code and click “Review Code”.
@@ -346,83 +440,59 @@ export default function DecodeUI() {
       </section>
 
       {/* Features */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mt-20">
-        <Feature
-          icon={<ShieldCheck className="text-blue-400" />}
-          title="Secure"
-          desc="Detects vulnerabilities and unsafe patterns."
-        />
-        <Feature
-          icon={<Zap className="text-green-400" />}
-          title="Fast"
-          desc="Instant AI-powered feedback."
-        />
-        <Feature
-          icon={<Code2 className="text-indigo-400" />}
-          title="Smart"
-          desc="Understands context, not just syntax."
-        />
+      <section className="mx-auto mt-20 grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3">
+        <Feature icon={<ShieldCheck className="text-blue-400" />} title="Secure" />
+        <Feature icon={<Zap className="text-green-400" />} title="Fast" />
+        <Feature icon={<Code2 className="text-indigo-400" />} title="Smart" />
       </section>
     </div>
   );
 }
 
-/* ---------- Components ---------- */
+/* -------------------- EXTRA -------------------- */
 
 function QualityMeter({ score }) {
   const color =
     score >= 80 ? "bg-green-500" : score >= 60 ? "bg-yellow-500" : "bg-red-500";
 
-  const label =
-    score >= 80
-      ? "Low Complexity"
-      : score >= 60
-      ? "Medium Complexity"
-      : "High Complexity";
-
   return (
-    <div>
-      <div className="flex justify-between text-sm mb-1">
-        <span>Code Quality Score</span>
-        <span className="font-semibold">{score}/100</span>
+    <div className="mb-4">
+      <div className="mb-1 flex justify-between text-sm">
+        <span>Code Quality</span>
+        <span>{score}/100</span>
       </div>
-      <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
+      <div className="h-2 rounded-full bg-zinc-800">
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${score}%` }}
-          transition={{ duration: 0.8 }}
-          className={`h-full ${color}`}
+          className={`h-full rounded-full ${color}`}
         />
       </div>
-      <p className="text-xs text-zinc-400 mt-1">{label}</p>
     </div>
   );
 }
 
 function Suggestion({ type, text }) {
-  const styles = {
-    bug: "text-red-400 bg-red-500/10 border-red-500/30",
-    warning: "text-yellow-400 bg-yellow-500/10 border-yellow-500/30",
-    suggestion: "text-green-400 bg-green-500/10 border-green-500/30",
+  const colors = {
+    bug: "text-red-400",
+    warning: "text-yellow-400",
+    suggestion: "text-green-400",
   };
 
   return (
-    <div className="flex items-center gap-2 text-sm">
-      <span className={`px-2 py-0.5 border rounded-full ${styles[type]}`}>
-        {type.toUpperCase()}
-      </span>
-      <span className="text-zinc-300">{text}</span>
-    </div>
+    <p className={`text-sm ${colors[type]}`}>• {text}</p>
   );
 }
 
-function Feature({ icon, title, desc }) {
+function Feature({ icon, title }) {
   return (
-    <Card className="bg-zinc-900 border-zinc-800 rounded-2xl">
-      <CardContent className="p-6">
-        <div className="mb-3">{icon}</div>
-        <h4 className="font-semibold mb-1">{title}</h4>
-        <p className="text-sm text-zinc-400">{desc}</p>
+    <Card>
+      <CardContent>
+        {icon}
+        <h4 className="mt-2 font-semibold">{title}</h4>
+        <p className="text-sm text-zinc-400">
+          Built for modern developers.
+        </p>
       </CardContent>
     </Card>
   );
