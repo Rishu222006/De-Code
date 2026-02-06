@@ -1,6 +1,6 @@
 # ET-hackathon
 
-This repository contains the code for a code reviewer to help the developers in real time.
+This repository contains the code for a code reviewer a tool designed to help you with your coding journey and improve effectively.
 
 # How it is Different:
     - Our code reviewer not only identifies bugs but also future scalibility issues as well as technical debt.
