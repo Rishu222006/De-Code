@@ -300,21 +300,40 @@ import FeaturesSection from "../Features/FeaturesSextion.jsx";
 import PageWrapper from "../layout/PageWrapper.jsx";
 
 export default function Analysis() {
+
     const [code, setCode] = useState("");
-    const [language, setLanguage] = useState("JavaScript");
+    const [file, setFile] = useState(null);
+    const [githubUrl, setGithubUrl] = useState("");
+
+    const [analysis, setAnalysis] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [score, setScore] = useState(null);
+    const [error, setError] = useState(null);
 
-    function handleReview() {
-        if (!code) return;
+    const analyzeCode = async () => {
+        if (!code.trim()) {
+            setError("Code cannot be empty");
+            return;
+        }
+
         setLoading(true);
-        setScore(null);
+        setError(null);
+        setAnalysis(null);
 
-        setTimeout(() => {
-            setScore(Math.floor(Math.random() * 40) + 60);
+        try {
+            const res = await fetch("http://localhost:5000/analyze", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ code }),
+            });
+
+            if (!res.ok) throw new Error("Failed to analyze code");
+            setAnalysis(await res.json());
+        } catch (err) {
+            setError(err.message);
+        } finally {
             setLoading(false);
-        }, 2000);
-    }
+        }
+    };
 
     return (
         <PageWrapper>
@@ -325,13 +344,11 @@ export default function Analysis() {
                 <CodeInputPanel
                     code={code}
                     onCodeChange={setCode}
-                    language={language}
-                    onLanguageChange={setLanguage}
                     loading={loading}
-                    onReview={handleReview}
+                    onAnalyze={analyzeCode}
                 />
 
-                <ReviewPanel loading={loading} score={score} />
+                <ReviewPanel loading={loading} analysis={analysis} error={error} />
             </main>
 
             <FeaturesSection />
