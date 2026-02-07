@@ -288,3 +288,53 @@ function Feature({ icon, title }) {
         </Card>
     );
 }
+
+
+/* import { useState } from "react";
+
+import Header from "../layout/LayouHeader";
+import Hero from "../layout/Hero.jsx";
+import CodeInputPanel from "../Features/CodeInputPanel.jsx";
+import ReviewPanel from "../Features/ReviewPanel.jsx";
+import FeaturesSection from "../Features/FeaturesSextion.jsx";
+
+export default function Analysis() {
+    const [code, setCode] = useState("");
+    const [language, setLanguage] = useState("JavaScript");
+    const [loading, setLoading] = useState(false);
+    const [score, setScore] = useState(null);
+
+    function handleReview() {
+        if (!code) return;
+        setLoading(true);
+        setScore(null);
+
+        setTimeout(() => {
+            setScore(Math.floor(Math.random() * 40) + 60);
+            setLoading(false);
+        }, 2000);
+    }
+
+    return (
+        <PageWrapper>
+            <Header />
+            <Hero />
+
+            <main className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2">
+                <CodeInputPanel
+                    code={code}
+                    onCodeChange={setCode}
+                    language={language}
+                    onLanguageChange={setLanguage}
+                    loading={loading}
+                    onReview={handleReview}
+                />
+
+                <ReviewPanel loading={loading} score={score} />
+            </main>
+
+            <FeaturesSection />
+        </PageWrapper>
+    );
+}
+ */

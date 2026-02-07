@@ -209,7 +209,7 @@ export default function CodeInput() {
 */}
 
 {/*import Home from "./landing_page.jsx";*/ }
-import Analysis from "../analysis.jsx";
+import Analysis from "./components/pages/analysis.jsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const App = () => {
