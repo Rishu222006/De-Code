@@ -19,63 +19,54 @@ This repository contains the code for a code reviewer a tool designed to help yo
 
 ```
 ET-hackathon/
-├── .git/
-├── .github/
-├── .gitignore
-├── package.json
-├── package-lock.json
-├── README.md
-├── node_modules/
-├── back/
-│   ├── .env
-│   ├── analyze.js
-│   ├── index.js
-│   ├── package.json
-│   ├── package-lock.json
-│   ├── node_modules/
-│   ├── routes/
-│   │   ├── file.js
-│   │   └── repo.js
-│   └── url_access/
-│       ├── file_access.js
-│       ├── file_list.js
-│       └── urlParser.js
-└── front/
-    ├── .gitignore
-    ├── eslint.config.js
-    ├── index.html
-    ├── package.json
-    ├── package-lock.json
-    ├── vite.config.js
-    ├── README.md
-    ├── node_modules/
-    ├── public/
-    │   └── vite.svg
-    └── src/
-        ├── App.jsx
-        ├── main.jsx
-        ├── index.css
-        ├── assets/
-        │   └── react.svg
-        ├── components/
-        │   ├── Features/
-        │   │   ├── CodeInputPanel.jsx
-        │   │   ├── FeaturesSextion.jsx
-        │   │   └── ReviewPanel.jsx
-        │   ├── layout/
-        │   │   ├── Hero.jsx
-        │   │   ├── LayouHeader.jsx
-        │   │   └── PageWrapper.jsx
-        │   ├── pages/
-        │   │   ├── analysis.jsx
-        │   │   └── landing_page.jsx
-        │   └── ui/
-        │       ├── Button.jsx
-        │       ├── Card.jsx
-        │       ├── Select.jsx
-        │       └── Textarea.jsx
-        └── utility/
-            └── cn.js
+├── back/                                   # Backend API server (Node.js/Express)
+│   ├── analyze.js                          # Core analysis logic for code review
+│   ├── index.js                            # Express server entry point
+│   ├── package.json                        # Backend dependencies
+│   ├── routes/                             # API route handlers
+│   │   ├── file.js                         # File upload and processing routes
+│   │   └── repo.js                         # Repository analysis routes
+│   └── url_access/                         # URL and file access utilities
+│       ├── file_access.js                  # File reading/access utilities
+│       ├── file_list.js                    # File listing and traversal
+│       └── urlParser.js                    # URL parsing for repo links
+├── front/                                  # Frontend React/Vite application
+│   ├── index.html                          # HTML entry point
+│   ├── vite.config.js                      # Vite build configuration
+│   ├── eslint.config.js                    # ESLint rules configuration
+│   ├── package.json                        # Frontend dependencies
+│   ├── public/                             # Static assets
+│   │   └── vite.svg                        # Vite logo asset
+│   └── src/                                # React source code
+│       ├── main.jsx                        # React DOM render entry
+│       ├── App.jsx                         # Root App component
+│       ├── index.css                       # Global styles
+│       ├── assets/                         # Media assets (images, SVGs)
+│       ├── components/                     # Reusable React components
+│       │   ├── Features/                   # Feature-specific components
+│       │   │   ├── CodeInputPanel.jsx      # Code input interface
+│       │   │   ├── FeaturesSextion.jsx     # Features showcase
+│       │   │   └── ReviewPanel.jsx         # Review results display
+│       │   ├── layout/                     # Layout wrapper components
+│       │   │   ├── Hero.jsx                # Hero section
+│       │   │   ├── LayouHeader.jsx         # Header navigation
+│       │   │   └── PageWrapper.jsx         # Page layout wrapper
+│       │   ├── pages/                      # Full page components
+│       │   │   ├── landing_page.jsx        # Home/landing page
+│       │   │   └── analysis.jsx            # Analysis results page
+│       │   └── ui/                         # Reusable UI components
+│       │       ├── Button.jsx              # Button component
+│       │       ├── Card.jsx                # Card/container component
+│       │       ├── Select.jsx              # Dropdown select component
+│       │       └── Textarea.jsx            # Text input component
+│       └── utility/                        # Helper utilities
+│           └── cn.js                       # Class name utility
+├── extra/                                  # Deprecated/experimental files
+│   ├── analyze_old.jsx                     # Old analysis component
+│   └── protype1.jsx                        # Old prototype component
+├── package.json                            # Root workspace configuration
+├── README.md                               # Project documentation
+└── .gitignore                              # Git ignore rules
 ```
 
 # To View project: 
