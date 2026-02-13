@@ -9,8 +9,8 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             className="flex justify-between mb-12"
         >
-            <h1 className="flex items-center gap-2 text-2xl font-bold">
-                <Sparkles className="text-indigo-400" /> de-code
+            <h1 className="flex items-center gap-2 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 via-slate-500 to-slate-200">
+                <Sparkles className="text-indigo-400" /> De-CODE
             </h1>
             <Button variant="secondary">Try Demo</Button>
         </motion.header>

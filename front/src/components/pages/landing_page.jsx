@@ -1,6 +1,7 @@
 import React from "react";
 import { Search, BrainCircuit, Clock, Sparkles, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Sparkle } from "lucide-react";
 
 export default function Home() {
     return (
@@ -12,7 +13,7 @@ export default function Home() {
                 {/* Hero */}
                 <section className="text-center mb-20">
                     <h1 className="text-6xl md:text-7xl font-black tracking-tight mb-4">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 via-slate-500 to-slate-200">
                             De-CODE
                         </span>
                     </h1>
@@ -42,10 +43,10 @@ export default function Home() {
 
                 {/* Editor Preview */}
                 <section className="w-full max-w-4xl mb-24">
-                    <div className="bg-[#1e222e] border border-slate-800 rounded-xl overflow-hidden">
+                    <div className="bg-[#0f1117] border border-slate-800/60 rounded-xl overflow-hidden">
 
                         {/* Window Bar */}
-                        <div className="flex justify-between items-center px-4 py-3 bg-[#151922] border-b border-slate-700/50 ">
+                        <div className="flex justify-between items-center px-4 py-3 bg-[#161b22] border-b border-slate-800/60">
                             <div className="flex gap-2">
                                 <span className="w-3 h-3 bg-red-500 rounded-full" />
                                 <span className="w-3 h-3 bg-yellow-500 rounded-full" />
@@ -68,7 +69,7 @@ export default function Home() {
 
                         {/* CTA */}
                         <div className="flex justify-center pb-6">
-                            <Link to={"/analyze"} className="bg-gradient-to-r from-cyan-500 to-purple-500 px-8 py-2 rounded-md font-semibold shadow-md hover:scale-105 transition">
+                            <Link to={"/analyze"} className="bg-indigo-700 px-8 py-2 rounded-md font-semibold shadow-md hover:scale-105 transition">
                                 Analyze Code
                             </Link>
                         </div>
@@ -88,12 +89,12 @@ export default function Home() {
 /* ---------- Components ---------- */
 
 const FeatureCard = ({ icon, title, description }) => (
-    <div className="p-6 rounded-2xl border border-zinc-800 bg-zinc-900">
+    <div className=" p-6 rounded-2xl border border-zinc-800 bg-zinc-900">
         <div className="flex justify-between mb-3">
             <h3 className="font-bold text-slate-100">{title}</h3>
             {icon}
         </div>
-        <p className="text-white-400 text-sm">{description}</p>
+        <p className="text-slate-400 text-sm">{description}</p>
     </div>
 );
 
