@@ -1,6 +1,6 @@
 import { Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
-import { Button } from "../ui/Button.jsx";
+import { Button } from "../../ui/Button.jsx";
 
 export default function Header() {
     return (

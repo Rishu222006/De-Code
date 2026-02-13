@@ -1,6 +1,6 @@
 import { Zap } from "lucide-react";
 import { motion } from "framer-motion";
-import { Card, CardContent } from "../../ui/Card";
+import { Card, CardContent } from "../../ui/Card.jsx";
 
 function RiskBadge({ risk }) {
     const colors = {

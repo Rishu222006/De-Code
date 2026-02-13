@@ -1,4 +1,4 @@
-import { FEATURES } from "../../data/homeData";
+import { FEATURES } from "../../../utility/HomeData.js";
 import FeatureCard from "./FeatureCard.jsx";
 
 export default function Features() {

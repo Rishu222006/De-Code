@@ -1,5 +1,5 @@
-import Home from "./components/pages/landing_page.jsx";
-import Analysis from "./components/pages/analysis.jsx";
+import Home from "./components/Home/Home.jsx";
+import Analysis from "./components/Analysis/analysis.jsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const App = () => {

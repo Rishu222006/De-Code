@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-import Header from "../layout/LayouHeader";
-import Hero from "../layout/Hero.jsx";
-import CodeInputPanel from "../Features/CodeInputPanel.jsx";
-import ReviewPanel from "../Features/ReviewPanel.jsx";
-import FeaturesSection from "../Features/FeaturesSection.jsx";
-import PageWrapper from "../layout/PageWrapper.jsx";
+import Header from "./layout/LayouHeader.jsx";
+import Hero from "./layout/Hero.jsx";
+import CodeInputPanel from "./Features/CodeInputPanel.jsx";
+import ReviewPanel from "./Features/ReviewPanel.jsx";
+import FeaturesSection from "./Features/FeaturesSection.jsx";
+import PageWrapper from "./layout/PageWrapper.jsx";
 
 export default function Analysis() {
 

@@ -1,5 +1,5 @@
 import { ShieldCheck, Zap, Code2 } from "lucide-react";
-import { Card, CardContent } from "../ui/Card";
+import { Card, CardContent } from "../../ui/Card";
 
 function Feature({ icon, title }) {
     return (
