@@ -5,7 +5,7 @@ import CodeBlock from "./CodeBlock.jsx";
 
 export default function EditorPreview() {
     return (
-        <section className="w-full max-w-4xl mb-24">
+        <section className="w-full max-w-4xl mb-24 transition-transform ease-out duration-300 hover:shadow-xl hover:shadow-indigo-300/10">
             <div className="bg-[#0f1117] border border-slate-800/60 rounded-xl overflow-hidden">
 
                 <div className="flex justify-between items-center px-4 py-3 bg-[#161b22] border-b border-slate-800/60">

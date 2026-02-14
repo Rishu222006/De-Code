@@ -57,7 +57,7 @@ export default function Analysis() {
         try {
             let res;
 
-            // 1️⃣ GitHub repo (highest priority)
+            // GitHub repo (highest priority)
             if (githubUrl) {
                 const formData = new FormData();
                 formData.append("githubUrl", githubUrl);
@@ -68,7 +68,7 @@ export default function Analysis() {
                 });
             }
 
-            // 2️⃣ File upload
+            // File upload
             else if (file) {
                 const formData = new FormData();
                 formData.append("file", file);
@@ -79,7 +79,7 @@ export default function Analysis() {
                 });
             }
 
-            // 3️⃣ Raw code
+            // Raw code
             else {
                 res = await fetch("http://localhost:5000/analyze", {
                     method: "POST",
