@@ -1,5 +1,6 @@
 import Home from "./components/Home/Home.jsx";
 import Analysis from "./components/Analysis/analysis.jsx";
+import About from "./components/about/About.jsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const App = () => {
@@ -9,7 +10,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/analyze' element={<Analysis />} />
-          <Route path='/about' />
+          <Route path='/about' element={<About />} />
         </Routes>
       </BrowserRouter>
     </div>

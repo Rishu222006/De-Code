@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-black text-white font-sans selection:bg-cyan-500/30 relative">
+    <div className="min-h-screen bg-gradient-to-br from-black via-[#0b0f14] to-black text-white font-sans selection:bg-cyan-500/30 relative">
       <button className="fixed  top-6 right-6 z-50 rounded-md border-zinc-700
                         bg-zinc-800/70 backdrop-blur px-4 py-2 text-sm text-white 
                         transition-transform hover:scale-105 hover:bg-zinc-700/70">
