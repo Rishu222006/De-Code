@@ -17,9 +17,36 @@ export default function Analysis() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
+    // const analyzeCode = async () => {
+    //     if (!code.trim()) {
+    //         setError("Code cannot be empty");
+    //         return;
+    //     }
+
+    //     setLoading(true);
+    //     setError(null);
+    //     setAnalysis(null);
+
+    //     try {
+    //         const res = await fetch("http://localhost:5000/analyze", {
+    //             method: "POST",
+    //             headers: { "Content-Type": "application/json" },
+    //             body: JSON.stringify({ code }),
+    //         });
+
+    //         if (!res.ok) throw new Error("Failed to analyze code");
+    //         setAnalysis(await res.json());
+    //     } catch (err) {
+    //         setError(err.message);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
+
+
     const analyzeCode = async () => {
-        if (!code.trim()) {
-            setError("Code cannot be empty");
+        if (!code.trim() && !file && !githubUrl) {
+            setError("Provide code, upload a file, or enter a GitHub URL");
             return;
         }
 
@@ -28,13 +55,41 @@ export default function Analysis() {
         setAnalysis(null);
 
         try {
-            const res = await fetch("http://localhost:5000/analyze", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ code }),
-            });
+            let res;
 
-            if (!res.ok) throw new Error("Failed to analyze code");
+            // 1️⃣ GitHub repo (highest priority)
+            if (githubUrl) {
+                const formData = new FormData();
+                formData.append("githubUrl", githubUrl);
+
+                res = await fetch("http://localhost:5000/analyze-github-repo", {
+                    method: "POST",
+                    body: formData,
+                });
+            }
+
+            // 2️⃣ File upload
+            else if (file) {
+                const formData = new FormData();
+                formData.append("file", file);
+
+                res = await fetch("http://localhost:5000/file", {
+                    method: "POST",
+                    body: formData,
+                });
+            }
+
+            // 3️⃣ Raw code
+            else {
+                res = await fetch("http://localhost:5000/analyze", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ code }),
+                });
+            }
+
+            if (!res.ok) throw new Error("Failed to analyze input");
+
             setAnalysis(await res.json());
         } catch (err) {
             setError(err.message);
@@ -42,6 +97,7 @@ export default function Analysis() {
             setLoading(false);
         }
     };
+
 
     return (
         <PageWrapper>
@@ -54,6 +110,10 @@ export default function Analysis() {
                     onCodeChange={setCode}
                     loading={loading}
                     onAnalyze={analyzeCode}
+                    file={file}
+                    onFileChange={setFile}
+                    githubUrl={githubUrl}
+                    onGithubUrlChange={setGithubUrl}
                 />
 
                 <ReviewPanel loading={loading} analysis={analysis} error={error} />
