@@ -3,7 +3,7 @@ import { Card, CardContent } from "../../ui/Card";
 
 function Feature({ icon, title }) {
     return (
-        <Card>
+        <Card hoverable>
             <CardContent>
                 {icon}
                 <h4 className="mt-2 font-semibold">{title}</h4>

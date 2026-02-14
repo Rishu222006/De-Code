@@ -1,6 +1,8 @@
 export default function FeatureCard({ title, description, icon: Icon, color }) {
     return (
-        <div className="p-6 rounded-2xl border border-zinc-800 bg-zinc-900">
+        <div className="p-6 rounded-2xl border border-zinc-800 bg-zinc-900
+                        transition-transform duration-300 ease-out hover:scale-[1.03]
+                        hover:shadow-xl hover:shadow-indigo-300/10">
             <div className="flex justify-between mb-3">
                 <h3 className="font-bold text-slate-100">{title}</h3>
                 <Icon className={color} />
