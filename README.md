@@ -19,46 +19,54 @@ This repository contains the code for a code reviewer a tool designed to help yo
 
 ```
 ET-hackathon/
-├── .git/
-├── .github/
-│   └── appmod/
-│       └── appcat/
-├── .gitignore
-├── back/
-│   ├── .env
-│   ├── analyze.js
-│   ├── index.js
-│   ├── node_modules/
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── routes/
-│   │   ├── file.js
-│   │   └── repo.js
-│   └── url_access/
-│       ├── file_access.js
-│       ├── file_list.js
-│       └── urlParser.js
-├── front/
-│   ├── .gitignore
-│   ├── eslint.config.js
-│   ├── index.html
-│   ├── node_modules/
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── README.md
-│   ├── vite.config.js
-│   ├── public/
-│   │   └── vite.svg
-│   └── src/
-│       ├── App.jsx
-│       ├── index.css
-│       ├── main.jsx
-│       └── assets/
-│           └── react.svg
-├── node_modules/
-├── package-lock.json
-├── package.json
-└── README.md
+├── back/                                   # Backend API server (Node.js/Express)
+│   ├── analyze.js                          # Core analysis logic for code review
+│   ├── index.js                            # Express server entry point
+│   ├── package.json                        # Backend dependencies
+│   ├── routes/                             # API route handlers
+│   │   ├── file.js                         # File upload and processing routes
+│   │   └── repo.js                         # Repository analysis routes
+│   └── url_access/                         # URL and file access utilities
+│       ├── file_access.js                  # File reading/access utilities
+│       ├── file_list.js                    # File listing and traversal
+│       └── urlParser.js                    # URL parsing for repo links
+├── front/                                  # Frontend React/Vite application
+│   ├── index.html                          # HTML entry point
+│   ├── vite.config.js                      # Vite build configuration
+│   ├── eslint.config.js                    # ESLint rules configuration
+│   ├── package.json                        # Frontend dependencies
+│   ├── public/                             # Static assets
+│   │   └── vite.svg                        # Vite logo asset
+│   └── src/                                # React source code
+│       ├── main.jsx                        # React DOM render entry
+│       ├── App.jsx                         # Root App component
+│       ├── index.css                       # Global styles
+│       ├── assets/                         # Media assets (images, SVGs)
+│       ├── components/                     # Reusable React components
+│       │   ├── Features/                   # Feature-specific components
+│       │   │   ├── CodeInputPanel.jsx      # Code input interface
+│       │   │   ├── FeaturesSextion.jsx     # Features showcase
+│       │   │   └── ReviewPanel.jsx         # Review results display
+│       │   ├── layout/                     # Layout wrapper components
+│       │   │   ├── Hero.jsx                # Hero section
+│       │   │   ├── LayouHeader.jsx         # Header navigation
+│       │   │   └── PageWrapper.jsx         # Page layout wrapper
+│       │   ├── pages/                      # Full page components
+│       │   │   ├── landing_page.jsx        # Home/landing page
+│       │   │   └── analysis.jsx            # Analysis results page
+│       │   └── ui/                         # Reusable UI components
+│       │       ├── Button.jsx              # Button component
+│       │       ├── Card.jsx                # Card/container component
+│       │       ├── Select.jsx              # Dropdown select component
+│       │       └── Textarea.jsx            # Text input component
+│       └── utility/                        # Helper utilities
+│           └── cn.js                       # Class name utility
+├── extra/                                  # Deprecated/experimental files
+│   ├── analyze_old.jsx                     # Old analysis component
+│   └── protype1.jsx                        # Old prototype component
+├── package.json                            # Root workspace configuration
+├── README.md                               # Project documentation
+└── .gitignore                              # Git ignore rules
 ```
 
 # To View project: 
