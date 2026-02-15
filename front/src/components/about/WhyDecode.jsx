@@ -18,7 +18,7 @@ export default function WhyDecode() {
         <section className="max-w-6xl mx-auto mb-24">
             <h2 className="text-3xl font-bold text-center mb-12">
                 Why{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 via-slate-500 to-slate-200">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-stone-700 via-slate-500 to-zinc-500">
                     De-CODE
                 </span>
                 ?

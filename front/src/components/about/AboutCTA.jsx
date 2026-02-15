@@ -10,11 +10,11 @@ export default function AboutCTA() {
                 <p className="text-gray-300 mb-6">
                     Start analyzing your code with AI and ship better software today.
                 </p>
-                <button className="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 transition rounded-lg font-semibold">
-                    <Link to={'/analyze'}>
-                        Analyze Code
-                    </Link>
-                </button>
+                <Link
+                    to={'/analyze'}
+                    className="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 transition rounded-lg font-semibold">
+                    Analyze Code
+                </Link>
             </div>
         </section>
     );

@@ -3,7 +3,7 @@ export default function AboutHero() {
         <section className="max-w-5xl mx-auto text-center mb-20">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
                 About{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 via-slate-500 to-slate-200">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-stone-700 via-slate-500 to-zinc-500">
                     De-CODE
                 </span>
             </h1>
