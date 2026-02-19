@@ -7,7 +7,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             className="mx-auto mb-16 max-w-4xl text-center"
         >
-            <h2 className="mb-4 text-4xl font-bold">
+            <h2 className="mb-4 text-3xl font-bold">
                 Write Better Code. Faster. Smarter.
             </h2>
             <p className="text-lg text-zinc-400">
