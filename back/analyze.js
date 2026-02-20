@@ -7,7 +7,7 @@ export async function analyzeCodeWithAI(code) {
     2. Logical bugs or fragile assumptions
     3. Technical debt that will cause issues in 6-12 months
 
-    For EACH issue, return:
+    For EACH issue, return in a simple to understand language without jargons:
     - title
     - category ( Bug | Scalability | Technical Debt)
     - explanation

@@ -100,26 +100,28 @@ export default function Analysis() {
 
 
     return (
-        <PageWrapper>
-            <Header />
-            <Hero />
+        <div className="no-scrollbar overflow-y-auto h-screen">
+            <PageWrapper>
+                <Header />
+                <Hero />
 
-            <main className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2">
-                <CodeInputPanel
-                    code={code}
-                    onCodeChange={setCode}
-                    loading={loading}
-                    onAnalyze={analyzeCode}
-                    file={file}
-                    onFileChange={setFile}
-                    githubUrl={githubUrl}
-                    onGithubUrlChange={setGithubUrl}
-                />
+                <main className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2">
+                    <CodeInputPanel
+                        code={code}
+                        onCodeChange={setCode}
+                        loading={loading}
+                        onAnalyze={analyzeCode}
+                        file={file}
+                        onFileChange={setFile}
+                        githubUrl={githubUrl}
+                        onGithubUrlChange={setGithubUrl}
+                    />
 
-                <ReviewPanel loading={loading} analysis={analysis} error={error} />
-            </main>
+                    <ReviewPanel loading={loading} analysis={analysis} error={error} />
+                </main>
 
-            <FeaturesSection />
-        </PageWrapper>
+                <FeaturesSection />
+            </PageWrapper>
+        </div>
     );
 }

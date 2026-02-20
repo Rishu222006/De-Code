@@ -1,6 +1,6 @@
 export default function FeatureCard({ title, description, icon: Icon, color }) {
     return (
-        <div className="p-6 rounded-2xl border border-zinc-800 bg-zinc-900
+        <div className="p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl
                         transition-transform duration-300 ease-out hover:scale-[1.03]
                         hover:shadow-xl hover:shadow-indigo-300/10">
             <div className="flex justify-between mb-3">

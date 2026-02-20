@@ -28,7 +28,7 @@ function IssueCard({ issue }) {
 
     return (
         <div
-            className={`rounded-md border-l-4 p-3 text-sm bg-zinc-950 ${severityColors[issue.severity]}`}
+            className={`rounded-md border-l-4 p-3 text-base bg-zinc-950 ${severityColors[issue.severity]}`}
         >
             <div className="flex justify-between mb-1">
                 <h4 className="font-semibold">{issue.title}</h4>
@@ -36,7 +36,7 @@ function IssueCard({ issue }) {
             </div>
 
             <p className="text-zinc-300 mb-1">{issue.explanation}</p>
-            <p className="text-xs text-zinc-500 italic">
+            <p className="text-sm text-zinc-500 italic">
                 {issue.failure_condition}
             </p>
 
@@ -80,10 +80,10 @@ export default function ReviewPanel({ loading, analysis, error }) {
 
                 {/* Results */}
                 {!loading && analysis && (
-                    <div className="flex max-h-72 flex-col gap-4">
+                    <div className="flex max-h-105 flex-col gap-4">
                         {/* Static summary */}
                         <div className="flex items-center justify-between">
-                            <div className="text-sm text-zinc-400">
+                            <div className="text-lg text-zinc-400">
                                 Detected Language:{" "}
                                 <span className="text-white">
                                     {analysis.detected_language || "Unknown"}
