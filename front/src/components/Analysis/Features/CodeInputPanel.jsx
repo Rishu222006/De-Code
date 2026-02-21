@@ -69,7 +69,7 @@ export default function CodeInputPanel({
                     value={code}
                     onChange={(e) => onCodeChange(e.target.value)}
                     placeholder="// Or paste production-ready code here"
-                    className="h-32"
+                    className="h-54"
                 />
 
                 {/* Action */}
