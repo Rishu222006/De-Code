@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "tags": [
+            "performance",
+            "loop",
+            "nested",
+            "complexity"
+        ],
+        "content": "Avoid deeply nested loops over large datasets This causes O(n^2) or worse performance will fail under high traffic"
+    },
+    {
+        "id": 2,
+        "tags": [
+            "blocking",
+            "sync",
+            "io",
+            "file",
+            "network"
+        ],
+        "content": "Avoid blocking I/O or synchronous operations inside request/response paths. This reduces concurrency and scalability."
+    },
+    {
+        "id": 3,
+        "tags": [
+            "database",
+            "query",
+            "index",
+            "scan"
+        ],
+        "content": "Database queries must be indexed properly. Full table scans do not scale beyond moderate data sizes."
+    },
+    {
+        "id": 4,
+        "tags": [
+            "memory",
+            "cache",
+            "leak",
+            "global"
+        ],
+        "content": "Avoid uncontrolled global variables or growing in-memory structures. This may cause memory leaks under long uptime."
+    },
+    {
+        "id": 5,
+        "tags": [
+            "security",
+            "input",
+            "validation",
+            "sanitize"
+        ],
+        "content": "All user input must be validated and sanitized before processing or database writes."
+    },
+    {
+        "id": 6,
+        "tags": [
+            "error",
+            "exception",
+            "try",
+            "catch"
+        ],
+        "content": "Proper error handling is required. Uncaught exceptions can crash the system at scale."
+    },
+    {
+        "id": 7,
+        "tags": [
+            "thread",
+            "concurrency",
+            "async",
+            "race"
+        ],
+        "content": "Shared mutable state in concurrent systems may cause race conditions and unpredictable behavior."
+    },
+    {
+        "id": 8,
+        "tags": [
+            "architecture",
+            "tight coupling",
+            "monolith"
+        ],
+        "content": "Highly coupled modules are hard to maintain and refactor after system growth."
+    }
+]
