@@ -1,0 +1,64 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="256" y2="256">
+      <stop offset="0%" stop-color="#050816"/>
+      <stop offset="100%" stop-color="#0B1220"/>
+    </linearGradient>
+
+    <linearGradient id="glow" x1="40" y1="40" x2="220" y2="220">
+      <stop offset="0%" stop-color="#00E5FF"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="256" height="256" rx="52" fill="url(#bg)"/>
+
+  <!-- Outer futuristic frame -->
+  <rect x="28" y="28" width="200" height="200" rx="32"
+        stroke="url(#glow)"
+        stroke-width="4"
+        opacity="0.45"/>
+
+  <!-- Core symbol -->
+  <g filter="url(#softGlow)">
+    
+    <!-- Left bracket -->
+    <path d="M92 76
+             L62 128
+             L92 180"
+          stroke="#00E5FF"
+          stroke-width="14"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+
+    <!-- Right bracket -->
+    <path d="M164 76
+             L194 128
+             L164 180"
+          stroke="#7C3AED"
+          stroke-width="14"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+
+    <!-- Center slash -->
+    <path d="M146 62
+             L110 194"
+          stroke="white"
+          stroke-width="12"
+          stroke-linecap="round"
+          opacity="0.9"/>
+  </g>
+
+  <!-- Small cyber dots -->
+  <circle cx="58" cy="58" r="4" fill="#00E5FF"/>
+  <circle cx="198" cy="198" r="4" fill="#7C3AED"/>
+</svg>
